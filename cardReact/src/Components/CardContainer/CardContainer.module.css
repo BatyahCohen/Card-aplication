@@ -1,0 +1,13 @@
+.cardContainer {
+  background-color: black;
+  height: 100vh;
+  display: flex;
+}
+
+.IoMdAdd{
+  color: white;
+}
+
+.innerContainer{
+  display: flex;
+}

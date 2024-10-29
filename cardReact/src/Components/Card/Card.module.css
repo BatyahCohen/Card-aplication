@@ -1,0 +1,54 @@
+.card {
+  color: white;
+  width: 12vw;
+  height: 17vh;
+  border: 1px solid white;
+  margin: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.backgroundGreen {
+  background-color: green;
+}
+
+.backgroundLightblue {
+  background-color: lightblue;
+}
+
+.backgroundOrange {
+  background-color: orange;
+}
+
+.backgroundPink {
+  background-color: pink;
+}
+
+input {
+  width: 58%;
+  margin-top: 10px;
+  border: none;
+  background-color: transparent;
+}
+
+button {
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  background-color: blue;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.colorsButtons {
+  background-color: white;
+  width: 100%;
+  text-align: center;
+}
+
+.footerCard {
+  display: flex;
+  justify-content: space-between;
+}
