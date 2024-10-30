@@ -1,13 +1,15 @@
 .card {
   color: white;
-  width: 12vw;
-  height: 17vh;
+  width: 18vw;
+  height: 24vh;
+  min-width: 200px;
   border: 1px solid white;
   margin: 1%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap:1%;
 }
 
 .backgroundGreen {
@@ -49,6 +51,18 @@ button {
 }
 
 .footerCard {
+  margin-top: 13vh;
   display: flex;
   justify-content: space-between;
+}
+
+.VscCircleLarge{
+  height: 3vh;
+  width: 3vw;
+  
+}
+
+.RiDeleteBinLine{
+  height: 3vh;
+  width: 3vw;
 }
