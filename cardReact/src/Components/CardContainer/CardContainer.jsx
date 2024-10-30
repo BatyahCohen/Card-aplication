@@ -37,8 +37,7 @@ const CardContainer = () => {
   }
 
   return (
-    <div className={styles.cardContainer}>
-      <div className={styles.innerContainer}>
+    <div className={styles.cardContainer}> 
         {cards.map((c) => (
           <Card
             key={c.id}
@@ -48,8 +47,7 @@ const CardContainer = () => {
             deleteCardF={delete1}
           ></Card>
         ))}{" "}
-        <IoMdAdd className={styles.IoMdAdd} onClick={() => add()} />
-      </div>
+        <div className={styles.plus} onClick={() => add()}>+</div>
     </div>
   );
 };

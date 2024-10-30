@@ -9,6 +9,7 @@ const Card = ({ id, text1, color1, deleteCardF }) => {
   const [text, setText] = useState();
   const [color, setColor] = useState();
   const [show, setShow] = useState(false);
+  const [updateTextShow, setUpdateTextShow] = useState(false);
 
   useEffect(() => {
     setText(text1);
@@ -27,16 +28,23 @@ const Card = ({ id, text1, color1, deleteCardF }) => {
 
   return (
     <div className={`${styles.card} ${styles[`background${color}`]}`}>
-      <input
-        type="text"
-        onChange={(e) => {
-          const newText = e.target.value;
-          setText(newText);
-          update({ text: newText });
-        }}
-        value={text}
-      ></input>
-
+      {updateTextShow && (
+        <input
+          type="text"
+          onChange={(e) => {
+            const newText = e.target.value;
+            setText(newText);
+            update({ text: newText });
+          }}
+          value={text}
+          onBlur={() => setUpdateTextShow(false)}
+        ></input>
+      )}
+      {!updateTextShow && (
+        <div className={styles.text} onClick={() => setUpdateTextShow(true)}>
+          {text}
+        </div>
+      )}
       <div className={styles.footerCard}>
         <VscCircleLarge
           className={styles.VscCircleLarge}
