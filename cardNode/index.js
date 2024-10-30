@@ -8,9 +8,10 @@ app.use(express.json());
 
 const port = 8000;
 
-let DB=[
-    {id:1,text:"aaa",color:"red"},
-]
+let DB=[{ id: 1, text: "AAA", color: "Green" },
+  { id: 2, text: "BBB", color: "Lightblue" },
+  { id: 3, text: "CCC", color: "Orange" },
+  { id: 4, text: "DDD", color: "Pink" },]
 
 module.exports = DB;
 
@@ -53,7 +54,7 @@ app.delete("/delete/:id", (req, res) => {
 app.post("/add",(req,res)=>{
 
     let card={
-        id:DB.length+1,
+        id:generateUniqueID(),
         text:req.body.text,
         color:req.body.color,
     }
@@ -65,3 +66,10 @@ app.post("/add",(req,res)=>{
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+function generateUniqueID() {
+  return (
+    Math.random().toString(36).substring(2) +
+    new Date().getTime().toString(36)
+  );
+}

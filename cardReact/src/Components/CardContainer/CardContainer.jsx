@@ -8,24 +8,27 @@ const CardContainer = () => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    setCards(getAllCards());
+    const fetchCards = async () => {
+      try {
+        const data = await getAllCards();
+        setCards(data);
+      } catch (error) {
+        console.error("Error fetching cards:", error);
+      }
+    };
+
+    fetchCards();
   }, []);
 
-  function generateUniqueID() {
-    return (
-      Math.random().toString(36).substring(2) +
-      new Date().getTime().toString(36)
-    );
-  }
 
   function add() {
     let newCard = {
-      id: generateUniqueID(),
+      id:-1,
       text: "Add your text",
       color: "Green",
     };
     setCards([...cards, newCard]);
-    addCard();
+    addCard(newCard);
   }
 
   function delete1(id) {

@@ -5,7 +5,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import styles from "./Card.module.css";
 import { updateCard } from "../../Services/Service";
 
-const Card = ({id, text1, color1,deleteCardF }) => {
+const Card = ({ id, text1, color1, deleteCardF }) => {
   const [text, setText] = useState();
   const [color, setColor] = useState();
   const [show, setShow] = useState(false);
@@ -18,12 +18,11 @@ const Card = ({id, text1, color1,deleteCardF }) => {
   let colors = ["Green", "Lightblue", "Orange", "Pink"];
 
   function deleteCard() {
-    deleteCardF(id)
+    deleteCardF(id);
   }
 
-  function update(field)
-  {
-    updateCard(id,field)
+  function update(field) {
+    updateCard(id, field);
   }
 
   return (
@@ -39,8 +38,14 @@ const Card = ({id, text1, color1,deleteCardF }) => {
       ></input>
 
       <div className={styles.footerCard}>
-        <VscCircleLarge className={styles.VscCircleLarge} onClick={() => setShow(true)} />
-        <RiDeleteBinLine className={styles.RiDeleteBinLine} onClick={()=>deleteCard()}/>
+        <VscCircleLarge
+          className={styles.VscCircleLarge}
+          onClick={() => setShow(true)}
+        />
+        <RiDeleteBinLine
+          className={styles.RiDeleteBinLine}
+          onClick={() => deleteCard()}
+        />
       </div>
       {show && (
         <div className={styles.colorsButtons}>
@@ -49,7 +54,7 @@ const Card = ({id, text1, color1,deleteCardF }) => {
               key={i}
               onClick={() => {
                 setColor(c);
-                update({color:c})
+                update({ color: c });
                 setShow(false);
               }}
               className={styles[`background${c}`]}

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const http = axios.create({
-    baseURL: "https://fakestoreapi.com",
+    baseURL: "http://localhost:8000",
     // url: "",
     headers: {
         "Content-type": "application/json"

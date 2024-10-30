@@ -1,20 +1,42 @@
-export function getAllCards(){
-    return cards;
+import { http } from "./http";
+
+export async function getAllCards() {
+    try {
+        const response = await http.get('/getAll');
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching cards:", error);
+        throw error;
+    }
 }
 
-export function deleteCard(id){
-
+export async function deleteCard(id){
+    try {
+        const response = await http.delete(`/delete/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error delete card:", error);
+        throw error;
+    }
 }
 
-export function addCard(card){
-
+export async function addCard(card){
+    try {
+        const response = await http.post('/add/',card);
+        return response.data;
+    } catch (error) {
+        console.error("Error add card:", error);
+        throw error;
+    }
 }
 
-export function updateCard(card){
-
+export async function updateCard(id,card){
+    try {
+        const response = await http.patch(`/update/${id}`,card);
+        return response.data;
+    } catch (error) {
+        console.error("Error update card:", error);
+        throw error;
+    }
 }
 
-let cards=[{ id: 1, text: "AAA", color: "Green" },
-    { id: 2, text: "BBB", color: "Lightblue" },
-    { id: 3, text: "CCC", color: "Orange" },
-    { id: 4, text: "DDD", color: "Pink" },]
