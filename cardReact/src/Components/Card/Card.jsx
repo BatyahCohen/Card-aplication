@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { VscCircleLarge } from "react-icons/vsc";
 import { RiDeleteBinLine } from "react-icons/ri";
-
 import styles from "./Card.module.css";
-import { updateCard } from "../../Services/Service";
 
-const Card = ({ id, text1, color1, deleteCardF }) => {
+const Card = ({ id, text1, color1, deleteCardF ,updateF}) => {
   const [text, setText] = useState();
   const [color, setColor] = useState();
   const [show, setShow] = useState(false);
@@ -23,7 +21,7 @@ const Card = ({ id, text1, color1, deleteCardF }) => {
   }
 
   function update(field) {
-    updateCard(id, field);
+    updateF(id, field);
   }
 
   return (

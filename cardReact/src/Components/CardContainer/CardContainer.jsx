@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./CardContainer.module.css";
 import Card from "../Card/Card";
 import { IoMdAdd } from "react-icons/io";
-import { addCard, deleteCard, getAllCards } from "../../Services/Service";
+import { addCard, deleteCard, getAllCards, updateCard } from "../../Services/Service";
 
 const CardContainer = () => {
   const [cards, setCards] = useState([]);
@@ -20,10 +20,9 @@ const CardContainer = () => {
     fetchCards();
   }, []);
 
-
   function add() {
     let newCard = {
-      id:-1,
+      id: -1,
       text: "Add your text",
       color: "Green",
     };
@@ -36,18 +35,29 @@ const CardContainer = () => {
     deleteCard(id);
   }
 
+  function update(id, field) {
+    const updatedCards = cards.map((i) => 
+      i.id === id ? { ...i, ...field } : i
+    );
+    setCards(updatedCards);
+    updateCard(id, field);
+  }
+
   return (
-    <div className={styles.cardContainer}> 
-        {cards.map((c) => (
-          <Card
-            key={c.id}
-            id={c.id}
-            text1={c.text}
-            color1={c.color}
-            deleteCardF={delete1}
-          ></Card>
-        ))}{" "}
-        <div className={styles.plus} onClick={() => add()}>+</div>
+    <div className={styles.cardContainer}>
+      {cards.map((c) => (
+        <Card
+          key={c.id}
+          id={c.id}
+          text1={c.text}
+          color1={c.color}
+          deleteCardF={delete1}
+          updateF={update}
+        ></Card>
+      ))}{" "}
+      <div className={styles.plus} onClick={() => add()}>
+        +
+      </div>
     </div>
   );
 };
