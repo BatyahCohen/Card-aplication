@@ -58,14 +58,9 @@ button {
   width: 100%;  
 }
 
-.VscCircleLarge{
+.icons{
   height: 3vh;
   width: 3vw; 
-}
-
-.RiDeleteBinLine{
-  height: 3vh;
-  width: 3vw;
 }
 
 input {

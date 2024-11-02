@@ -10,6 +10,16 @@ export async function getAllCards() {
     }
 }
 
+export async function getAllPinCards() {
+    try {
+        const response = await http.get('/getAllPinned');
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching pinned cards:", error);
+        throw error;
+    }
+}
+
 export async function deleteCard(id){
     try {
         const response = await http.delete(`/delete/${id}`);
@@ -19,6 +29,28 @@ export async function deleteCard(id){
         throw error;
     }
 }
+
+
+export async function deletePinCard(id){
+    try {
+        const response = await http.delete(`/deletePinned/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error delete pinned card:", error);
+        throw error;
+    }
+}
+
+export async function addPinCard(id){
+    try {
+        const response = await http.post(`/addPinned/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error add pinned card:", error);
+        throw error;
+    }
+}
+
 
 export async function addCard(card){
     try {
@@ -39,4 +71,6 @@ export async function updateCard(id,card){
         throw error;
     }
 }
+
+
 

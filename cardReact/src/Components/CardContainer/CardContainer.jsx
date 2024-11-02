@@ -1,26 +1,45 @@
 import { useEffect, useState } from "react";
 import styles from "./CardContainer.module.css";
 import Card from "../Card/Card";
-import { IoMdAdd } from "react-icons/io";
 import {
   addCard,
+  addPinCard,
   deleteCard,
+  deletePinCard,
   getAllCards,
+  getAllPinCards,
   updateCard,
 } from "../../Services/Service";
 
 const CardContainer = () => {
   const [cards, setCards] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  
-  const cardsToShow=cards.filter((card) =>
-    card.text.toLowerCase().includes(searchValue))
+  const [pinCards, setPinCards] = useState([]);
+
+  const cardsToShow = [
+    ...pinCards.filter((pinCard) =>
+      pinCard.text.toLowerCase().includes(searchValue)
+    ),
+    ...cards.filter(
+      (card) =>
+        card.text.toLowerCase().includes(searchValue) &&
+        !pinCards.includes(card)
+    ),
+  ];
 
   useEffect(() => {
     const fetchCards = async () => {
       try {
-        const data = await getAllCards();
-        setCards(data);
+        const allCards = await getAllCards();
+        const pinnedIds = await getAllPinCards();
+
+        const pinnedCards = pinnedIds
+          .map((id) => allCards.find((card) => card.id === id))
+          .filter((card) => card !== undefined);
+
+        console.log(pinnedCards);
+        setCards(allCards);
+        setPinCards(pinnedCards);
       } catch (error) {
         console.error("Error fetching cards:", error);
       }
@@ -31,7 +50,7 @@ const CardContainer = () => {
 
   function add() {
     let newCard = {
-      id: -1,
+      id: generateUniqueID(),
       text: "Add your text",
       color: "Green",
     };
@@ -40,7 +59,15 @@ const CardContainer = () => {
   }
 
   function delete1(id) {
-    setCards(cards.filter((i) => i.id !== id));
+    const cardToDelete = cards.find((i) => i.id === id);
+
+    setCards((prevCards) => prevCards.filter((i) => i.id !== id));
+
+    if (cardToDelete && pinCards.some((pinCard) => pinCard.id === id)) {
+      setPinCards((prevPinCards) => prevPinCards.filter((i) => i.id !== id));
+      deletePinCard(id);
+    }
+
     deleteCard(id);
   }
 
@@ -49,7 +76,37 @@ const CardContainer = () => {
       i.id === id ? { ...i, ...field } : i
     );
     setCards(updatedCards);
+  
+    const updatedPinCards = pinCards.map((p) =>
+      updatedCards.find((i) => i.id === p.id) || p
+    );
+  
+    setPinCards(updatedPinCards);
     updateCard(id, field);
+  }
+  
+
+  function pinCard(cardId) {
+    console.log(cardId);
+    console.log(cards);
+
+    let c = cards.filter((i) => i.id === cardId)[0];
+    console.log(c);
+    setPinCards([...cards.filter((i) => i.id === cardId), ...pinCards]);
+    console.log(pinCards);
+    addPinCard(cardId);
+  }
+
+  function rePinCard(cardId) {
+    setPinCards(pinCards.filter((card) => card.id != cardId));
+    deletePinCard(cardId);
+  }
+
+  function generateUniqueID() {
+    return (
+      Math.random().toString(36).substring(2) +
+      new Date().getTime().toString(36)
+    );
   }
 
   return (
@@ -68,6 +125,9 @@ const CardContainer = () => {
             color1={c.color}
             deleteCardF={delete1}
             updateF={update}
+            pinCardF={pinCard}
+            rePinCardF={rePinCard}
+            isPinned={pinCards.includes(c)}
           ></Card>
         ))}
         <div className={styles.plus} onClick={() => add()}>

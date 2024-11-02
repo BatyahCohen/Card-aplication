@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import { VscCircleLarge } from "react-icons/vsc";
-import { RiDeleteBinLine } from "react-icons/ri";
 import styles from "./Card.module.css";
+import { RiDeleteBinLine, RiPushpinLine, RiPushpin2Fill } from "react-icons/ri";
 
-const Card = ({ id, text1, color1, deleteCardF ,updateF}) => {
+
+const Card = ({
+  id,
+  text1,
+  color1,
+  deleteCardF,
+  updateF,
+  pinCardF,
+  rePinCardF,
+  isPinned,
+}) => {
   const [text, setText] = useState();
   const [color, setColor] = useState();
   const [show, setShow] = useState(false);
@@ -22,6 +32,14 @@ const Card = ({ id, text1, color1, deleteCardF ,updateF}) => {
 
   function update(field) {
     updateF(id, field);
+  }
+
+  function pinCard() {
+    pinCardF(id);
+  }
+
+  function rePinCard() {
+    rePinCardF(id);
   }
 
   return (
@@ -45,11 +63,23 @@ const Card = ({ id, text1, color1, deleteCardF ,updateF}) => {
       )}
       <div className={styles.footerCard}>
         <VscCircleLarge
-          className={styles.VscCircleLarge}
+          className={styles.icons}
           onClick={() => setShow(true)}
         />
+
+        {!isPinned && (
+          <RiPushpinLine className={styles.icons} onClick={() => pinCard()} />
+        )}
+
+        {isPinned && (
+          <RiPushpin2Fill
+            className={styles.icons}
+            onClick={() => rePinCard()}
+          />
+        )}
+
         <RiDeleteBinLine
-          className={styles.RiDeleteBinLine}
+          className={styles.icons}
           onClick={() => deleteCard()}
         />
       </div>
